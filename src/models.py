@@ -66,5 +66,6 @@ class Calculation(ormar.Model):
         await self.update(
             action=Action[action],
             value=value,
-            status=Status.finished
+            status=Status.finished,
+            finished_at=datetime.now()
         )

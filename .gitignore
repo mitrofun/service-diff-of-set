@@ -1,0 +1,13 @@
+__pycache__/
+.idea
+.python-version
+.DS_Store
+.direnv
+config.env
+.envrc
+.pytest_cache/
+
+sqlite.db
+
+media/
+!.gitkeep

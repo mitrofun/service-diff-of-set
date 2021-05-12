@@ -1,6 +1,6 @@
 # Тестовое задание Perx Soft
 
-[![Build Status](https://www.travis-ci.org/mitrofun/service-diff-of-set.svg?branch=master)](https://www.travis-ci.org/mitrofun/service-diff-of-set)
+[![Build Status](https://www.travis-ci.com/mitrofun/service-diff-of-set.svg?branch=master)](https://www.travis-ci.com/mitrofun/service-diff-of-set)
 
 ## Описание
 

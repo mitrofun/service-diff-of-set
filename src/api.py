@@ -2,11 +2,16 @@ from typing import List
 
 import aiofiles
 import ormar
-from fastapi import APIRouter, BackgroundTasks, File, UploadFile, HTTPException, status
+from fastapi import (
+    APIRouter, BackgroundTasks, File,
+    UploadFile, HTTPException, Security,
+    status,
+)
 
 from src.config import settings
 from src.models import Calculation
 from src.services import get_lists_for_comparison
+from src.security import get_api_key
 from src.utils import create_file_path, equalize_lists
 
 app_router = APIRouter(
@@ -14,13 +19,13 @@ app_router = APIRouter(
 )
 
 
-@app_router.get('/', response_model=List[Calculation])
+@app_router.get('/', response_model=List[Calculation], dependencies=[Security(get_api_key)])
 async def get_items():
     items = await Calculation.objects.all()
     return items
 
 
-@app_router.post('/', status_code=status.HTTP_201_CREATED)
+@app_router.post('/', status_code=status.HTTP_201_CREATED, dependencies=[Security(get_api_key)])
 async def create_item(background_tasks: BackgroundTasks, file: UploadFile = File(...)):
 
     if file.content_type not in settings.allow_content:
@@ -36,7 +41,7 @@ async def create_item(background_tasks: BackgroundTasks, file: UploadFile = File
     return {'calculation_id': calculation.id}
 
 
-@app_router.get('/{item_id}', response_model=Calculation)
+@app_router.get('/{item_id}', response_model=Calculation, dependencies=[Security(get_api_key)])
 async def get_item(item_id: int):
     try:
         return await Calculation.objects.get(id=item_id)

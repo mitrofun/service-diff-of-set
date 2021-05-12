@@ -12,6 +12,7 @@ ROOT_PATH = os.path.join(current_path, '..')
 sys.path.insert(0, ROOT_PATH)
 
 from src.db import metadata  # noqa
+from src.config import settings  # noqa
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -36,7 +37,7 @@ def run_migrations_offline():
     script output.
 
     """
-    url = config.get_main_option("sqlalchemy.url")
+    url = config.get_main_option(settings.db_url)
     context.configure(
         url=url,
         target_metadata=target_metadata,

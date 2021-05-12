@@ -1,7 +1,8 @@
+# type: ignore
 """add result values
 
 Revision ID: f575ba3e4325
-Revises: 
+Revises:
 Create Date: 2021-04-30 14:23:44.745463
 
 """

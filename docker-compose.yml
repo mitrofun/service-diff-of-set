@@ -1,0 +1,40 @@
+---
+
+# Default compose file for development and production.
+# Should be used directly in development.
+# Automatically loads `docker-compose.override.yml` if it exists.
+# No extra steps required.
+# Should be used together with `docker-compose.prod.yml`
+# in production.
+
+version: "3.6"
+services:
+  web:
+    <<: &web
+      # Image name is changed in production:
+      build:
+        target: development_build
+        context: .
+        dockerfile: ./Dockerfile
+        args:
+          APP_ENV: development
+        cache_from:
+          - "*"
+
+      volumes:
+        - media:/opt/app/media
+        - sqlite:/opt/app/data
+
+      networks:
+        - webnet
+      env_file: ./config.env
+
+    command: uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+
+networks:
+  # Network for your internals, use it by default:
+  webnet:
+
+volumes:
+  sqlite:
+  media:

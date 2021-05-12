@@ -8,6 +8,7 @@ config.env
 .pytest_cache/
 
 sqlite.db
+*.sqlite3
 
 media/
 !.gitkeep

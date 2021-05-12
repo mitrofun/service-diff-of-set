@@ -13,14 +13,14 @@ app.state.database = database
 app.mount('/media', StaticFiles(directory=settings.media_dir), name='media')
 
 
-@app.on_event("startup")
+@app.on_event('startup')
 async def startup() -> None:
     database_ = app.state.database
     if not database_.is_connected:
         await database_.connect()
 
 
-@app.on_event("shutdown")
+@app.on_event('shutdown')
 async def shutdown() -> None:
     database_ = app.state.database
     if database_.is_connected:

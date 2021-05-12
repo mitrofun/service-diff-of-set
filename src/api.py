@@ -50,7 +50,7 @@ async def get_item(item_id: int):
 async def save_file(file_path: str, file: UploadFile):
     async with aiofiles.open(file_path, 'wb') as buffer:
         data = await file.read()
-        await buffer.write(data)
+        await buffer.write(data)  # type: ignore
 
 
 async def update_calculation(content_type: str, calculation_id: int) -> None:
@@ -58,5 +58,5 @@ async def update_calculation(content_type: str, calculation_id: int) -> None:
     file_path = calculation.file
     await calculation.set_processed_status()
     lists_for_calculation = get_lists_for_comparison(content_type, file_path)
-    num, action = equalize_lists(*lists_for_calculation)
-    await calculation.set_finished_status(value=num, action=action)
+    results = equalize_lists(*lists_for_calculation)
+    await calculation.set_finished_status(*results)

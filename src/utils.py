@@ -1,25 +1,26 @@
 import os
-import uuid 
+import uuid
 
-from typing import Optional, Tuple, Union
-from pathlib import Path, _ignore_error as pathlib_ignore_error  # noqa
+from typing import Tuple, Union, Optional
+from pathlib import Path, _ignore_error as pathlib_ignore_error  # type: ignore  # noqa
 
 import aiofiles.os
 
 from .config import settings
 
 
-def equalize_lists(left_items: list[int], right_items: list[int]) -> Optional[Tuple[int, str]]:
+def equalize_lists(left_items: list[Union[int, None]],
+                   right_items: list[Union[int, None]]) -> Tuple[Optional[int], Optional[str]]:
     """
     Calculate needed operation
-    return: Number and action: 'removed' or 'added'
+    return: Number and action: 'removed' or 'added'. or None, None
     """
     if set(left_items) == set(right_items):
-        return
+        return None, None
     difference: set = set(left_items) ^ set(right_items)
     num = list(difference)[0]
     action = 'removed' if num in left_items else 'added'
-    return num, action 
+    return num, action
 
 
 async def create_file_path(filename: str) -> str:

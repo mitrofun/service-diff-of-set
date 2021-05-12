@@ -1,0 +1,27 @@
+---
+
+# This compose-file is production only. So, it should not be called directly.
+#
+# Instead, it should be a part of your deploy strategy.
+# This setup is supposed to be used with `docker-swarm`.
+
+version: "3.6"
+services:
+  web:
+    <<: &web
+      # Image for production:
+      build:
+        target: production_build
+        args:
+          APP_ENV: production
+
+      restart: unless-stopped
+
+    command: sh ./deploy/docker-entrypoint.sh
+
+    ports:
+      # Use expose with nginx or caddy on production
+      - "8000:8000"
+
+    #    expose:
+    #      - 8000

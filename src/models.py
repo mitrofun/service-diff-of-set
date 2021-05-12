@@ -1,5 +1,6 @@
 from datetime import datetime
 from enum import IntEnum
+from typing import Optional
 
 import ormar
 from ormar import property_field
@@ -11,7 +12,7 @@ class EnumWithName(IntEnum):
     def __new__(cls, value: int, name: str):
         member = int.__new__(cls, value)
         member._value_ = value
-        member._name = name
+        member._name = name  # type: ignore
         return member
 
     def __int__(self):
@@ -41,8 +42,8 @@ class Calculation(ormar.Model):
     class Meta(MainMeta):
         tablename = 'calculations'
 
-    id: int = ormar.Integer(primary_key=True)
-    file: str = ormar.String(max_length=1000, unique=True)
+    id: int = ormar.Integer(primary_key=True)  # noqa
+    file: str = ormar.String(max_length=1000, unique=True)  # noqa
     status: int = ormar.Integer(choices=list(Status), default=Status.uploaded, index=True)
     action: int = ormar.Integer(default=Action.not_calculated)
     value: int = ormar.Integer(nullable=True)
@@ -51,20 +52,28 @@ class Calculation(ormar.Model):
 
     @property_field
     def display_status(self) -> str:
-        return str(Status(self.status))
+        return str(Status(self.status))  # type: ignore
 
     @property_field
     def result(self) -> str:
         if self.action == Action.not_calculated:
             return ''
-        return f'{Action(self.action)}: {self.value}'
+        return f'{Action(self.action)}: {self.value}'  # type: ignore
 
     async def set_processed_status(self) -> None:
         await self.update(status=Status.processed)
 
-    async def set_finished_status(self, value: int, action: str) -> None:
+    async def set_finished_status(self, value: Optional[int], action: Optional[str]) -> None:
+        # The situation is not described in the task
+        if not value and not action:
+            await self.update(
+                action=Action.not_calculated,
+                status=Status.finished,
+                finished_at=datetime.now()
+            )
+            return
         await self.update(
-            action=Action[action],
+            action=Action[action],  # type: ignore
             value=value,
             status=Status.finished,
             finished_at=datetime.now()

@@ -1,13 +1,13 @@
-from typing import Optional, Union
+from typing import Union
 
 from loguru import logger
-import xlrd
-import openpyxl
+import xlrd  # type: ignore
+import openpyxl  # type: ignore
 
 
 class ExcelReader:
-    before_list = []
-    after_list = []
+    before_list: list = []
+    after_list: list = []
 
     def __init__(self, filename):
         self.filename = filename
@@ -30,14 +30,14 @@ class XlsxReader(ExcelReader):
     def _get_headers(sheet):
         return next(sheet.values)
 
-    def lists_for_comparison(self) -> Optional[tuple[list[Union[int, None]], list[Union[int, None]]]]:
+    def lists_for_comparison(self) -> tuple[list[Union[int, None]], list[Union[int, None]]]:
         wb = openpyxl.load_workbook(filename=self.filename)
         for sheet_name in wb.sheetnames:
             ws = wb[sheet_name]
             try:
                 headers = self._get_headers(ws)
                 if 'before' and 'after' not in headers:
-                    return
+                    return self.before_list, self.after_list
                 self.before_list = self._get_target_list('before', ws, headers)
                 self.after_list = self._get_target_list('after', ws, headers)
             except StopIteration:
@@ -57,14 +57,14 @@ class XlsReader(ExcelReader):
     def _get_headers(sheet):
         return list(map(lambda x: x.value, sheet.row(0)))
 
-    def lists_for_comparison(self) -> Optional[tuple[list[Union[int, None]], list[Union[int, None]]]]:
+    def lists_for_comparison(self) -> tuple[list[Union[int, None]], list[Union[int, None]]]:
         wb = xlrd.open_workbook(self.filename)
         for sheet in wb.sheets():
             ws = wb[sheet.name]
             try:
                 headers = self._get_headers(ws)
                 if 'before' and 'after' not in headers:
-                    return
+                    return self.before_list, self.after_list
                 self.before_list = self._get_target_list('before', ws, headers)
                 self.after_list = self._get_target_list('after', ws, headers)
             except IndexError:
@@ -78,10 +78,11 @@ READERS = {
 }
 
 
-def get_lists_for_comparison(content_type: str, filename: str) -> \
-        Optional[tuple[list[Union[int, None]], list[Union[int, None]]]]:
+def get_lists_for_comparison(content_type: str,
+                             filename: str) -> tuple[list[Union[int, None]], list[Union[int, None]]]:
     try:
         reader = READERS[content_type](filename)
         return reader.lists_for_comparison()
     except KeyError:
         logger.warning(f'Not supported content type "{content_type}" in file: {filename}.')
+        return [], []

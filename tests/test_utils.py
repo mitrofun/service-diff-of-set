@@ -8,8 +8,8 @@ from src.utils import equalize_lists, create_file_path
     [
         ([1, 2], [1, 2, 3], (3, 'added')),
         ([1, 2, 3, 4], [1, 2, 4], (3, 'removed')),
-        ([1, 2, 3, 4, 5], [1, 3, 4, 5, 2], None),
-        ([], [], None),
+        ([1, 2, 3, 4, 5], [1, 3, 4, 5, 2], (None, None)),
+        ([], [], (None, None)),
         ([], [1], (1, 'added')),
         ([1], [], (1, 'removed')),
     ]

@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "3.9"
+
+install:
+  - cp example.env config.env
+  - pip install poetry && poetry install
+
+script:
+  # test code
+  - flake8 . --count
+  - mypy .
+  - py.test

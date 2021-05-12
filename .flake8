@@ -2,8 +2,4 @@
 ignore = D203
 max-line-length = 120
 exclude = .git,__pycache__,.direnv,.env,alembic
-inline-quotes = single
-multiline-quotes = double
-
-max-complexity = 8
-max-annotations-complexity = 4
+max-complexity = 10

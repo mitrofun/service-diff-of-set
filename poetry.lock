@@ -444,18 +444,6 @@ version = "0.6.2"
 pytest = ">=2.6.0"
 
 [[package]]
-category = "dev"
-description = "pytest plugin to run the mccabe code complexity checker."
-name = "pytest-mccabe"
-optional = false
-python-versions = "*"
-version = "2.0"
-
-[package.dependencies]
-mccabe = "*"
-pytest = ">=5.4.0"
-
-[[package]]
 category = "main"
 description = "Extensions to the standard Python datetime module"
 name = "python-dateutil"
@@ -599,7 +587,7 @@ docs = ["sphinx"]
 test = ["pytest", "pytest-cov"]
 
 [metadata]
-content-hash = "84b4565cf7f6f891ab74b41226cbdd88ec01aa55670d6c3979660de581b27e71"
+content-hash = "89456eb0b07827e54890247d3d9a5e4705f40e17af1bae8eabfeb6c2422e232b"
 lock-version = "1.1"
 python-versions = "^3.9"
 
@@ -845,10 +833,6 @@ pytest-asyncio = [
 ]
 pytest-env = [
     {file = "pytest-env-0.6.2.tar.gz", hash = "sha256:7e94956aef7f2764f3c147d216ce066bf6c42948bb9e293169b1b1c880a580c2"},
-]
-pytest-mccabe = [
-    {file = "pytest-mccabe-2.0.tar.gz", hash = "sha256:050a1f1c145202ea87f0c0ad7b529f088098040fe2eb8e5d797d36be86e0fa20"},
-    {file = "pytest_mccabe-2.0-py2.py3-none-any.whl", hash = "sha256:9b1708efd52b8724dedcfe48ec668ab5bda2f7ffb1c85a2edcd4f36541307d04"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},

@@ -1,4 +1,6 @@
-# Тестовое задание
+# Тестовое задание Perx Soft
+
+[![Build Status](https://www.travis-ci.org/mitrofun/service-diff-of-set.svg?branch=master)](https://www.travis-ci.org/mitrofun/service-diff-of-set)
 
 ## Описание
 
@@ -34,3 +36,71 @@
 - время обработки должно быть линейным
 
 Приложение может быть реализовано с использованием любого фреймворка. Для определения числа X нельзя использовать специализированные библиотеки обработки данных, такие как pandas. Дополнительным плюсом будет размещение приложения в контейнере Docker. Разработанное приложение необходимо размесить в github-репозитории.
+
+# Зависимости
+- python 3.9+
+- fastapi
+- sqlite
+- docker
+- docker-compose
+- mypy
+- flake8
+- pytest
+
+# Установка
+
+## Локальная установка
+- Клонируем 
+```bash
+git clone https://github.com/mitrofun/service-diff-of-set.git
+```
+- Создаем необходимые переменные окружения для работы приложения
+```bash
+cd service-diff-of-set
+cp example.env config.env
+```
+- Создаем виртуальное окружение и активируем его
+```bash
+virtualenv .venv
+source .venv/bin/activate
+```
+- Устанавливаем poetry и зависимости проекта
+```bash
+pip install poetry && poetry install
+```
+- Создать папку для базы данных
+```bash
+mkdir data
+```
+- Запуск приложения
+```bash
+uvicorn src.main:app --reload
+```
+## Алиасы для локальной разработки
+- Запуск локального сервера разработки
+```bash
+make run  
+```
+- Запуск линтера
+```bash
+make linter  
+```
+- Запуск тестов
+```bash
+make qa  
+```
+
+## Установка и запуск через docker-compose
+- Клонируем 
+```bash
+git clone https://github.com/mitrofun/service-diff-of-set.git
+```
+- Создаем необходимые переменные окружения для работы приложения
+```bash
+cd service-diff-of-set
+cp example.env config.env
+```
+- Запускаем docker-compose 
+```bash
+docker-compose up
+```

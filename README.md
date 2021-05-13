@@ -108,7 +108,19 @@ git clone https://github.com/mitrofun/service-diff-of-set.git
 cd service-diff-of-set
 cp example.env config.env
 ```
-- Запускаем docker-compose 
+- Запускаем docker-compose для локальной среды разработки
 ```bash
 docker-compose up
 ```
+
+- Запускаем docker-compose на production окружении 
+```bash
+docker-compose -f docker-compose.yml -f deploy/docker-compose.prod.yml up -d --build
+```
+
+## Роутинг
+
+- `GET /docs` - swagger
+- `GET /calculations` - список всех вычислений
+- `POST /calculations` - добавление файла для вычисления
+- `GET /calculations/:id` - Детальные данные о вычислении по ключу `id`

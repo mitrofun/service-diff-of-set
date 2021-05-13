@@ -29,6 +29,8 @@ RUN apk update && apk add --update --no-cache --progress \
   bash \
   tini \
   openssl \
+  gcc \
+  musl-dev \
   curl \
   # Installing `dockerize` utility:
   # https://github.com/jwilder/dockerize

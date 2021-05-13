@@ -19,7 +19,7 @@ deploy/docker-compose.prod.yml
 .pytest_cache
 .editorconfig
 *.db
-*.sqlite3
+*.sqlite
 README.md
 Makefile
 media/

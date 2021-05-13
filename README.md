@@ -72,11 +72,19 @@ pip install poetry && poetry install
 ```bash
 mkdir data
 ```
+- Выполнить миграции
+```bash
+alembic upgrade head
+```  
 - Запуск приложения
 ```bash
 uvicorn src.main:app --reload
 ```
 ## Алиасы для локальной разработки
+- Запуск миграций
+```bash
+make migration  
+```
 - Запуск локального сервера разработки
 ```bash
 make run  

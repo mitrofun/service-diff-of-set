@@ -21,4 +21,4 @@ def test_equalize_lists(left_list, right_list, expected):
 @pytest.mark.asyncio
 async def test_create_file_path():
     file_path = await create_file_path('test')
-    assert file_path == 'tmp/test'
+    assert file_path == 'media/test'

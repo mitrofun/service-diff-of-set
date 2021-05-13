@@ -2,14 +2,12 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
 from src.config import settings
-from src.db import database, metadata, engine
+from src.db import database
 from src.api import app_router
 
 app = FastAPI()
 
-metadata.create_all(engine)
 app.state.database = database
-
 app.mount('/media', StaticFiles(directory=settings.media_dir), name='media')
 
 

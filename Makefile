@@ -1,7 +1,10 @@
+# target: migration - Run migration
+migration:
+	[ -d data ] || mkdir data
+	alembic upgrade head
+
 # target: run - Run server
 run:
-	echo "Create database folder"
-	[ -d data ] || mkdir data
 	echo "Run develop server"
 	uvicorn src.main:app --reload
 

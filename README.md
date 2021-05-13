@@ -1,6 +1,6 @@
 # Тестовое задание Perx Soft
 
-[![Build Status](https://www.travis-ci.org/mitrofun/service-diff-of-set.svg?branch=master)](https://www.travis-ci.org/mitrofun/service-diff-of-set)
+[![Build Status](https://www.travis-ci.com/mitrofun/service-diff-of-set.svg?branch=master)](https://www.travis-ci.com/mitrofun/service-diff-of-set)
 
 ## Описание
 
@@ -72,11 +72,19 @@ pip install poetry && poetry install
 ```bash
 mkdir data
 ```
+- Выполнить миграции
+```bash
+alembic upgrade head
+```  
 - Запуск приложения
 ```bash
 uvicorn src.main:app --reload
 ```
 ## Алиасы для локальной разработки
+- Запуск миграций
+```bash
+make migration  
+```
 - Запуск локального сервера разработки
 ```bash
 make run  

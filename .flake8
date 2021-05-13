@@ -1,7 +1,7 @@
 [flake8]
 ignore = D203
 max-line-length = 120
-exclude = .git,__pycache__,.direnv,.env,alembic
+exclude = .git,__pycache__,.direnv,.env,.venv,alembic
 inline-quotes = single
 multiline-quotes = double
 
